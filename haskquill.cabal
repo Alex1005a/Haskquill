@@ -1,0 +1,114 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.35.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           haskquill
+version:        0.1.0.0
+synopsis:       Compile-time QDSL for SQL queries
+description:    Please see the README on GitHub at <https://github.com/Alex1005a/haskquill#readme>
+category:       Database
+homepage:       https://github.com/Alex1005a/haskquill#readme
+bug-reports:    https://github.com/Alex1005a/haskquill/issues
+author:         Alex Asafov
+maintainer:     asafofalexander@gmail.com
+copyright:      2024 Alex Asafov
+license:        BSD-3-Clause
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/Alex1005a/haskquill
+
+flag build-example
+  manual: True
+  default: False
+
+library
+  exposed-modules:
+      Haskquill
+      Haskquill.Qdsl
+  other-modules:
+      Ast
+      DoNotationDesugar
+      Parser
+      PrintSql
+      RenameProperties
+      SqlQuery
+      Traversal
+      Paths_haskquill
+  autogen-modules:
+      Paths_haskquill
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , lift-type
+    , mtl
+    , postgresql-simple
+    , syb
+    , template-haskell
+    , text
+    , th-desugar
+    , time
+  default-language: Haskell2010
+
+executable example-exe
+  main-is: Main.hs
+  other-modules:
+      Prepare
+      Paths_haskquill
+  autogen-modules:
+      Paths_haskquill
+  hs-source-dirs:
+      example
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , haskquill
+    , lift-type
+    , mtl
+    , postgresql-simple
+    , syb
+    , template-haskell
+    , text
+    , th-desugar
+    , time
+  default-language: Haskell2010
+  if (!flag(build-example))
+    buildable: False
+
+test-suite haskquill-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Domain
+      TestQsql
+      Paths_haskquill
+  autogen-modules:
+      Paths_haskquill
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , containers
+    , haskquill
+    , lift-type
+    , mtl
+    , postgresql-simple
+    , syb
+    , template-haskell
+    , text
+    , th-desugar
+    , time
+  default-language: Haskell2010

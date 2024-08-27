@@ -1,0 +1,75 @@
+name:                haskquill
+version:             0.1.0.0
+github:              Alex1005a/haskquill
+license:             BSD-3-Clause
+author:              Alex Asafov
+maintainer:          asafofalexander@gmail.com
+copyright:           2024 Alex Asafov
+
+extra-source-files:
+- README.md
+- CHANGELOG.md
+
+synopsis:            Compile-time QDSL for SQL queries
+category:            Database
+description:         Please see the README on GitHub at <https://github.com/Alex1005a/haskquill#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- th-desugar
+- containers
+- syb
+- template-haskell
+- postgresql-simple
+- text
+- time
+- lift-type
+- mtl
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+  exposed-modules:
+  - Haskquill
+  - Haskquill.Qdsl
+
+flags:
+  build-example:
+    manual: true
+    default: false
+
+executables:
+  example-exe:
+    when:
+      condition: (!flag(build-example))
+      buildable: false
+    main:                Main.hs
+    source-dirs:         example
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - haskquill
+
+tests:
+  haskquill-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - HUnit
+    - haskquill
